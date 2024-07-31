@@ -1,13 +1,13 @@
-﻿using LogistikbudeExercise.Services;
+﻿using LogistikbudeExercise.Enums;
+using LogistikbudeExercise.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Extensions;
 
 namespace LogistikbudeExercise.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TransactionsController(
-    ITransactionService transactionService
-) : ControllerBase
+public class TransactionsController(ITransactionService transactionService) : ControllerBase
 {
     private readonly ITransactionService _transactionService = transactionService;
 
@@ -29,7 +29,8 @@ public class TransactionsController(
     public IActionResult GetBalance()
     {
         DateTime referenceDate = new(2024, 05, 01);
-        string carrierType = "EPAL";
+        string carrierType = LoadCarrierTypes.EPAL.GetDisplayName();
+
         var balance = _transactionService.GetBalance(referenceDate, carrierType);
         return Ok(balance);
     }
