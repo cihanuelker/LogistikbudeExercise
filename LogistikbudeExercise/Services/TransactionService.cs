@@ -8,6 +8,7 @@ namespace LogistikbudeExercise.Services;
 public class TransactionService : ITransactionService
 {
     private readonly List<Location> _locations = LoadLocations("E:\\logistikbude_exercise.json");
+
     public List<LocationSummaryDto> GetTopLocations()
     {
         return _locations
